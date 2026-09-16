@@ -1,128 +1,134 @@
-<div align="center">
+# Real-Time Cigarette Detection System (YOLO11)
 
-# 🚬 Sistem Deteksi Rokok Real-Time (YOLO11)
-### Real-Time Cigarette & Smoking Detection System with Computer Vision
-
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
-[![YOLO11](https://img.shields.io/badge/YOLO-v11-00FFFF.svg?logo=ultralytics&logoColor=black)](https://github.com/ultralytics/ultralytics)
-[![OpenCV](https://img.shields.io/badge/OpenCV-4.8%2B-5C3EE8.svg?logo=opencv&logoColor=white)](https://opencv.org/)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![YOLO11](https://img.shields.io/badge/YOLO-v11-00FFFF.svg)](https://github.com/ultralytics/ultralytics)
+[![OpenCV](https://img.shields.io/badge/OpenCV-4.8%2B-5C3EE8.svg)](https://opencv.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-*Sistem deteksi objek berbasis Deep Learning untuk mendeteksi rokok/aktivitas merokok secara langsung (real-time) melalui webcam atau kamera CCTV.*
-
-</div>
+A deep learning-based real-time object detection and tracking system designed to identify cigarettes and smoking activities from live camera feeds (webcam/CCTV).
 
 ---
 
-## 📌 Tentang Proyek
+## Overview
 
-Proyek ini dibangun untuk mendukung penegakan aturan di **Kawasan Tanpa Rokok (KTR)** seperti sekolah, universitas, rumah sakit, SPBU, area pabrik rawan kebakaran, dan gedung perkantoran. 
+This project provides an automated computer vision solution for monitoring smoke-free areas such as educational institutions, healthcare facilities, fuel stations, hazardous industrial environments, and public buildings. 
 
-Dengan menggabungkan arsitektur mutakhir **Ultralytics YOLO11** dan pelacakan objek **ByteTrack**, sistem ini mampu mengenali rokok dengan akurasi tinggi dan latensi rendah pada komputer/laptop standar.
-
----
-
-## ✨ Fitur Utama
-
-- ⚡ **Deteksi Sinkron Real-Time**: Inferensi dan *rendering* diproses secara sinkron, memastikan *bounding box* selalu presisi pada posisi objek tanpa keterlambatan (*lag/ghosting*).
-- 🎯 **Pelacakan Objek (ByteTrack)**: Dilengkapi modul *tracking* untuk melacak objek antar-frame dan meminimalkan kedipan (*anti-flicker*).
-- 📷 **Dukungan Multi-Kamera & Auto-Fallback**: Mendukung webcam internal laptop maupun webcam USB eksternal (FHD Camera) dengan deteksi otomatis.
-- 🎛️ **Kontrol Sensitivitas Dinamis**: Nilai *confidence threshold* dapat diatur langsung saat aplikasi berjalan hanya dengan menekan tombol keyboard.
-- 📸 **Tangkapan Layar Satu Tombol**: Simpan bukti deteksi langsung ke folder `captures/` dengan format tanggal & waktu otomatis.
-- 🚀 **Launcher Satu Klik (`run.bat`)**: Memudahkan pengguna awam menjalankan sistem tanpa perlu mengetik perintah terminal manual.
+By integrating **Ultralytics YOLO11** with **ByteTrack**, the system achieves low-latency inference and stable multi-frame object tracking suitable for deployment on standard workstation CPUs and edge devices.
 
 ---
 
-## 🛠️ Tech Stack & Dependensi
+## Features
 
-- **Bahasa Pemrograman**: Python 3.10+
-- **Deep Learning / Object Detection**: [Ultralytics YOLO11](https://github.com/ultralytics/ultralytics)
-- **Computer Vision**: OpenCV (Open Source Computer Vision Library)
-- **Framework Numerik**: PyTorch, NumPy
+- **Synchronous Real-Time Detection**: Frame reading and model inference are executed synchronously to ensure bounding box alignment without display lag.
+- **Object Tracking (ByteTrack)**: Integrated tracking algorithm to maintain object continuity and reduce detection flickering across consecutive frames.
+- **Multi-Camera Support**: Automatic detection and fallback between internal laptop cameras and external USB webcams.
+- **Dynamic Sensitivity Adjustment**: Real-time confidence threshold tuning using keyboard inputs during runtime.
+- **Snapshot Capture**: On-demand image capture saved with timestamped filenames for evidence logging.
+- **One-Click Launcher**: Batch script (`run.bat`) for quick startup on Windows environments.
 
 ---
 
-## 📂 Struktur Direktori
+## Tech Stack
+
+- **Programming Language**: Python 3.10+
+- **Object Detection Model**: Ultralytics YOLO11
+- **Tracking Algorithm**: ByteTrack
+- **Computer Vision**: OpenCV
+- **Inference Runtime**: PyTorch, NumPy
+
+---
+
+## Directory Structure
 
 ```text
 Deteksi-Rokok/
-├── best model.pt          # Bobot model YOLO11 hasil pelatihan (~5.4 MB)
-├── captures/              # Folder penyimpanan hasil snapshot deteksi
+├── best model.pt          # Pre-trained YOLO11 model weights (~5.4 MB)
+├── captures/              # Directory for saved detection snapshots
 │   └── .gitkeep
-├── detect_webcam.py       # Program utama inferensi real-time webcam
-├── requirements.txt       # Daftar dependensi Python
-├── run.bat                # Script launcher interaktif Windows
-├── .gitignore             # File ignorasi Git
-├── LICENSE                # Lisensi MIT
-└── README.md              # Dokumentasi proyek
+├── detect_webcam.py       # Main real-time inference and tracking script
+├── requirements.txt       # Python package dependencies
+├── run.bat                # Interactive Windows launcher
+├── .gitignore             # Git ignore patterns
+├── LICENSE                # MIT License
+└── README.md              # Project documentation
 ```
 
 ---
 
-## 🚀 Panduan Instalasi & Penggunaan
+## Installation
 
-### 1. Kloning Repositori
+### 1. Clone Repository
 ```bash
 git clone https://github.com/murdifin15/Deteksi-Rokok.git
 cd Deteksi-Rokok
 ```
 
-### 2. Instalasi Dependensi
-Disarankan menggunakan virtual environment (opsional):
+### 2. Set Up Virtual Environment (Recommended)
 ```bash
 python -m venv venv
-venv\Scripts\activate      # Windows
+# Windows:
+venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
 ```
 
-Instal paket yang diperlukan:
+### 3. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Menjalankan Aplikasi
+---
 
-#### **Cara A: Menggunakan Launcher (Paling Mudah)**
-Cukup klik ganda file **`run.bat`** atau jalankan di terminal:
+## Usage
+
+### Option A: Windows Launcher
+Run the batch file directly or via terminal:
 ```cmd
 run.bat
 ```
-Pilih nomor kamera yang diinginkan (default: `1` untuk Webcam Eksternal).
 
-#### **Cara B: Menggunakan Perintah Python**
-* Menggunakan **Webcam Eksternal (USB)**:
+### Option B: Command Line Interface (CLI)
+
+- **Run with external webcam (source 1):**
   ```bash
   python detect_webcam.py --source 1
   ```
-* Menggunakan **Webcam Internal Laptop**:
+
+- **Run with default/internal camera (source 0):**
   ```bash
   python detect_webcam.py --source 0
   ```
-* Menyesuaikan nilai *confidence* awal:
+
+- **Run with custom confidence threshold and image size:**
   ```bash
-  python detect_webcam.py --source 1 --conf 0.35
+  python detect_webcam.py --source 1 --conf 0.35 --imgsz 320
   ```
 
+### CLI Arguments
+
+| Argument | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `--model` | str | `best model.pt` | Path to the trained YOLO model file |
+| `--source` | str | `1` | Video source index or file path |
+| `--conf` | float | `0.25` | Confidence threshold for object detection |
+| `--iou` | float | `0.45` | IoU threshold for Non-Maximum Suppression |
+| `--imgsz` | int | `320` | Input image resolution for inference |
+| `--label` | str | `Rokok` | Display label for detected class |
+| `--test` | flag | `False` | Run self-test mode with dummy image |
+
 ---
 
-## 🎮 Kontrol Keyboard
+## Keyboard Controls
 
-Saat jendela deteksi aktif, Anda dapat menggunakan tombol berikut:
-
-| Tombol | Fungsi |
+| Key | Action |
 | :---: | :--- |
-| <kbd>Q</kbd> / <kbd>ESC</kbd> | Keluar dan menghentikan aplikasi |
-| <kbd>S</kbd> | Menyimpan gambar tangkapan layar ke folder `captures/` |
-| <kbd>+</kbd> / <kbd>=</kbd> | Menaikkan nilai *confidence* (mengurangi sensitivitas) |
-| <kbd>-</kbd> / <kbd>_</kbd> | Menurunkan nilai *confidence* (meningkatkan sensitivitas) |
+| `Q` / `ESC` | Exit application |
+| `S` | Save current frame to `captures/` folder |
+| `+` / `=` | Increase confidence threshold (+0.05) |
+| `-` / `_` | Decrease confidence threshold (-0.05) |
 
 ---
 
-## 📄 Lisensi
+## License
 
-Proyek ini dilisensikan di bawah [MIT License](LICENSE). Bebas digunakan dan dikembangkan untuk keperluan akademik maupun komersial.
-
----
-
-<div align="center">
-  Dibuat dengan ❤️ oleh <a href="https://github.com/murdifin15">Murdifin</a>
-</div>
+This project is licensed under the [MIT License](LICENSE).
