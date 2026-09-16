@@ -38,20 +38,30 @@ Dengan mengintegrasikan model **Ultralytics YOLO11** dan algoritma pelacakan **B
 
 ---
 
-## Struktur Direktori
+## Struktur Direktori Repositori
 
 ```text
 Deteksi-Rokok/
-├── best model.pt          # Bobot model YOLO11 (~5.4 MB)
-├── captures/              # Direktori penyimpanan hasil tangkapan layar
-│   └── .gitkeep
-├── detect_webcam.py       # Skrip utama inferensi dan pelacakan webcam
-├── requirements.txt       # Daftar dependensi pustaka Python
-├── run.bat                # Skrip launcher interaktif Windows
-├── .gitignore             # Konfigurasi pengabaian file Git
-├── LICENSE                # Berkas Lisensi MIT (Murdifin)
-└── README.md              # Dokumentasi proyek
+├── captures/               # Direktori penyimpanan hasil tangkapan layar (snapshot)
+│   └── .gitkeep            # Penjaga keberadaan direktori pada Git
+├── best model.pt           # Bobot (weights) model YOLO11 hasil pelatihan (~5.4 MB)
+├── detect_webcam.py        # Skrip utama: akuisisi kamera, inferensi YOLO11, ByteTrack, dan UI
+├── requirements.txt        # Daftar dependensi pustaka Python
+├── run.bat                 # Skrip launcher interaktif satu-klik untuk sistem Windows
+├── .gitignore              # Konfigurasi pengabaian berkas sementara oleh Git
+├── LICENSE                 # Berkas lisensi resmi MIT (Hak Cipta Murdifin)
+└── README.md               # Dokumentasi teknis proyek
 ```
+
+### Penjelasan Komponen Berkas
+
+| Berkas / Direktori | Deskripsi Fungsional |
+| :--- | :--- |
+| `detect_webcam.py` | Modul inti yang menangani aliran video webcam secara multithreading, eksekusi inferensi sinkron YOLO11 + ByteTrack, *rendering overlay* bounding box, serta penanganan pintasan keyboard dinamis. |
+| `best model.pt` | Model neural network YOLO11 teroptimasi (~5.4 MB) yang telah dilatih untuk mendeteksi objek rokok secara cepat pada perangkat CPU maupun GPU. |
+| `run.bat` | Menu peluncur interaktif berbasis Command Prompt untuk memilih indeks kamera (Webcam Eksternal USB atau Kamera Internal) sebelum eksekusi. |
+| `captures/` | Wadah penyimpanan otomatis tangkapan layar beranotasi dengan format penamaan berbasis tanggal dan waktu (*timestamp*) saat tombol `S` ditekan. |
+| `requirements.txt` | Spesifikasi dependensi pustaka (`ultralytics`, `opencv-python`, `torch`, `numpy`, `pillow`) untuk instalasi lingkungan kerja terisolasi. |
 
 ---
 
